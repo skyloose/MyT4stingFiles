@@ -71,9 +71,9 @@ local Tabs = {
 local Options = Fluent.Options
 
 Fluent:Notify({
-    Title = "Testing Files",
-    Content = "Script Loaded",
-    Duration = 1
+    Title = "⚠ WARNING",
+    Content = "This game has low player count, meaning you may encounter A moderator",
+    Duration = 9
 })
 
 Tabs.Main:AddButton({
