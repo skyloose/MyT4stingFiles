@@ -20,7 +20,12 @@ local codes = {
     "200KYES",
     "92KLIKES",
     "93KLIKES",
-    "94KLIKES"
+    "94KLIKES",
+    "95KLIKES",
+    "96KLIKES",
+    "97KLIKES",
+    "98KLIKES",
+    "99KLIKES"
 }
 
 local function teleportToPosition()
