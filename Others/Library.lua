@@ -8,6 +8,7 @@ function G2L:Initialize()
     mainUI.Size = UDim2.new(0, 514, 0, 382)
     mainUI.Position = UDim2.new(0.368, 0, 0.23472, 0)
     mainUI.Name = "MainUI"
+    mainUI.Active = true
     
     Instance.new("UIAspectRatioConstraint", mainUI)
     Instance.new("UICorner", mainUI)
@@ -18,10 +19,10 @@ function G2L:Initialize()
     titleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     titleLabel.TextSize = 14
     titleLabel.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    titleLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
     titleLabel.BackgroundTransparency = 1
     titleLabel.Size = UDim2.new(0, 292, 0, 35)
-    titleLabel.Text = "Library title"
+    titleLabel.Text = "Library Title"
     titleLabel.Position = UDim2.new(0.02618, 0, 0, 0)
 
     local closeButton = Instance.new("TextButton", mainUI)
@@ -51,6 +52,38 @@ function G2L:Initialize()
     local uiListLayout = Instance.new("UIListLayout", scrollingFrame)
     uiListLayout.Padding = UDim.new(0, 5)
     uiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+    local toggleUI = Instance.new("TextButton", screenGui)
+    toggleUI.Text = "Toggle UI"
+    toggleUI.BorderSizePixel = 0
+    toggleUI.TextSize = 14
+    toggleUI.TextColor3 = Color3.fromRGB(255, 255, 255)
+    toggleUI.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    toggleUI.Size = UDim2.new(0, 80, 0, 35)
+    toggleUI.Position = UDim2.new(0.05, 0, 0.05, 0)
+    Instance.new("UICorner", toggleUI)
+    
+    local dragging, dragStart, startPos
+    mainUI.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = mainUI.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then dragging = false end
+            end)
+        end
+    end)
+    mainUI.InputChanged:Connect(function(input)
+        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            local delta = input.Position - dragStart
+            mainUI.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+
+    toggleUI.MouseButton1Click:Connect(function()
+        mainUI.Visible = not mainUI.Visible
+    end)
 
     self.MainUI = mainUI
     self.ScrollingFrame = scrollingFrame
