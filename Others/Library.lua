@@ -22,7 +22,7 @@ function G2L:Initialize()
     titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
     titleLabel.BackgroundTransparency = 1
     titleLabel.Size = UDim2.new(0, 292, 0, 35)
-    titleLabel.Text = "Library Title"
+    titleLabel.Text = "Helio"
     titleLabel.Position = UDim2.new(0.02618, 0, 0, 0)
 
     local closeButton = Instance.new("TextButton", mainUI)
